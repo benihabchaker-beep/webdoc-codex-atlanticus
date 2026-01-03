@@ -1,3 +1,5 @@
+"use client";
+
 // Sections (Strict 7-step structure)
 import HeroSection from "@/components/sections/HeroSection";
 import CodexConstellation from "@/components/sections/CodexConstellation";
@@ -17,7 +19,13 @@ import CustomCursor from "@/components/CustomCursor";
 import AudioPlayer from "@/components/AudioPlayer";
 import StickyNav from "@/components/StickyNav";
 
+// Helper for FadeIn
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+
 export default function Home() {
+  const [journeyUnlocked, setJourneyUnlocked] = useState(false);
+
   return (
     <UIProvider>
       <main className="bg-[#0f1014] min-h-screen text-slate-300 selection:bg-cyan-500/30">
@@ -38,33 +46,40 @@ export default function Home() {
         <NarrativeBridge text="Face à l'urgence, les solutions actuelles échouent. Pourquoi ?" />
 
         {/* 2. PROBLÉMATIQUE (NARRATIVE JOURNEY) */}
-        <NarrativeJourney />
+        <NarrativeJourney onUnlock={() => setJourneyUnlocked(true)} />
 
-        {/* 3. ÉTAT DE L'ART */}
-        <StateOfArt />
+        {/* LOCKED CONTENT: ONLY APPEARS AFTER JOURNEY */}
+        <AnimatePresence>
+          {journeyUnlocked && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+              {/* 3. ÉTAT DE L'ART */}
+              <StateOfArt />
 
-        {/* BRIDGE 2 */}
-        <NarrativeBridge text="Si l'image ne suffit pas, il faut repenser la nature même de l'archive." />
+              {/* BRIDGE 2 */}
+              <NarrativeBridge text="Si l'image ne suffit pas, il faut repenser la nature même de l'archive." />
 
-        {/* 4. HYPOTHÈSE (PIVOT) */}
-        <HypothesisSection />
+              {/* 4. HYPOTHÈSE (PIVOT) */}
+              <HypothesisSection />
 
-        {/* BRIDGE 3 */}
-        <NarrativeBridge text="Comment transformer cette théorie en une machine fonctionnelle ?" />
+              {/* BRIDGE 3 */}
+              <NarrativeBridge text="Comment transformer cette théorie en une machine fonctionnelle ?" />
 
-        {/* 4.5 MÉTHODOLOGIE */}
-        <MethodologyTimeline />
+              {/* 4.5 MÉTHODOLOGIE */}
+              <MethodologyTimeline />
 
-        {/* 5. DÉVELOPPEMENT DU SUJET */}
-        <DeepDiveSection />
+              {/* 5. DÉVELOPPEMENT DU SUJET */}
+              <DeepDiveSection />
 
-        {/* 6. RÉSULTATS */}
-        <section id="resultats" className="py-24 bg-[#0a0b0e]">
-          <ResultsGallery />
-        </section>
+              {/* 6. RÉSULTATS */}
+              <section id="resultats" className="py-24 bg-[#0a0b0e]">
+                <ResultsGallery />
+              </section>
 
-        {/* 7. CONCLUSION */}
-        <ConclusionSection />
+              {/* 7. CONCLUSION */}
+              <ConclusionSection />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </main>
     </UIProvider>

@@ -90,9 +90,25 @@ const steps: StoryStep[] = [
     }
 ];
 
-export default function NarrativeJourney() {
+interface NarrativeJourneyProps {
+    onUnlock?: () => void;
+}
+
+export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
     const [progress, setProgress] = useState(0); // 0 = unlocking step 1, 1 = unlocking step 2... 3 = finished
     const [activeStep, setActiveStep] = useState<StoryStep | null>(null);
+
+    // Lock body scroll when a step is active (modal open)
+    useEffect(() => {
+        if (activeStep) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [activeStep]);
 
     const handleStepClick = (index: number) => {
         if (index <= progress) {
@@ -206,13 +222,13 @@ export default function NarrativeJourney() {
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/60 backdrop-blur-[2px] z-40"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40"
                             onClick={() => setActiveStep(null)}
                         />
                         <motion.div
                             initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25 }}
-                            className="absolute right-0 top-0 bottom-0 w-full md:w-[600px] bg-slate-950 border-l border-red-900/30 z-50 overflow-y-auto flex flex-col"
+                            className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-slate-950 border-l border-red-900/30 z-50 overflow-y-auto flex flex-col"
                         >
                             {/* Header Image */}
                             <div className="h-64 relative shrink-0">
@@ -263,7 +279,12 @@ export default function NarrativeJourney() {
                             Il est temps de passer à la méthode scientifique.
                         </p>
                         <button
-                            onClick={() => document.getElementById('etat-art')?.scrollIntoView({ behavior: 'smooth' })}
+                            onClick={() => {
+                                if (onUnlock) onUnlock();
+                                setTimeout(() => {
+                                    document.getElementById('etat-art')?.scrollIntoView({ behavior: 'smooth' });
+                                }, 100);
+                            }}
                             className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-cyan-400 transition-colors"
                         >
                             DÉCOUVRIR LA SOLUTION
