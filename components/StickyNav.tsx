@@ -14,7 +14,7 @@ const sections = [
     { id: "conclusion", label: "Conclusion" }
 ];
 
-export default function StickyNav() {
+export default function StickyNav({ dependency }: { dependency?: any }) {
     const [activeSection, setActiveSection] = useState("intro");
 
     useEffect(() => {
@@ -26,7 +26,10 @@ export default function StickyNav() {
                     }
                 });
             },
-            { threshold: 0.5 }
+            {
+                rootMargin: "-45% 0px -45% 0px", // Check primarily the center of the screen
+                threshold: 0 // Trigger as soon as it enters this zone
+            }
         );
 
         sections.forEach(({ id }) => {
@@ -35,7 +38,7 @@ export default function StickyNav() {
         });
 
         return () => observer.disconnect();
-    }, []);
+    }, [dependency]);
 
     const scrollTo = (id: string) => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

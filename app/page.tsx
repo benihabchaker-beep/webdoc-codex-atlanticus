@@ -34,7 +34,7 @@ export default function Home() {
         <NoiseOverlay />
         <CustomCursor />
         <AudioPlayer />
-        <StickyNav />
+        <StickyNav dependency={journeyUnlocked} />
 
         {/* 1. INTRODUCTION */}
         <HeroSection />
