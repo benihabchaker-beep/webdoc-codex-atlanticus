@@ -1,20 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
 
+    // Smooth physics for the ring (lag behind)
+    const springConfig = { damping: 25, stiffness: 120 };
+    const springX = useSpring(0, springConfig);
+    const springY = useSpring(0, springConfig);
+
     useEffect(() => {
         const updatePosition = (e: MouseEvent) => {
             setPosition({ x: e.clientX, y: e.clientY });
+            springX.set(e.clientX - 16); // Center the 32px ring
+            springY.set(e.clientY - 16);
         };
 
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (target.tagName === "BUTTON" || target.tagName === "A" || target.closest('button') || target.closest('a')) {
+            // Detect clickable elements
+            if (
+                target.tagName === "BUTTON" ||
+                target.tagName === "A" ||
+                target.closest('button') ||
+                target.closest('a') ||
+                target.style.cursor === 'pointer'
+            ) {
                 setIsHovering(true);
             } else {
                 setIsHovering(false);
@@ -28,33 +42,41 @@ export default function CustomCursor() {
             window.removeEventListener("mousemove", updatePosition);
             window.removeEventListener("mouseover", handleMouseOver);
         };
-    }, []);
+    }, [springX, springY]);
 
     return (
-        <>
-            {/* Main Dot */}
+        <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden hidden md:block">
+            {/* 1. Center Dot (Instant) */}
             <motion.div
-                className="fixed top-0 left-0 w-3 h-3 bg-cyan-400 rounded-full pointer-events-none z-[100] mix-blend-difference"
+                className="absolute w-2 h-2 bg-white rounded-full mix-blend-difference"
                 animate={{
-                    x: position.x - 6,
-                    y: position.y - 6,
-                    scale: isHovering ? 0 : 1,
+                    x: position.x - 4,
+                    y: position.y - 4,
+                    scale: isHovering ? 0.5 : 1,
                 }}
-                transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+                transition={{ type: "tween", duration: 0 }}
             />
 
-            {/* Ring Ring */}
+            {/* 2. Outer Ring (Lag + Magnetic Scale) */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 border border-cyan-500 rounded-full pointer-events-none z-[100] mix-blend-difference"
+                className="absolute w-8 h-8 border border-white rounded-full mix-blend-difference"
+                style={{ x: springX, y: springY }}
                 animate={{
-                    x: position.x - 16,
-                    y: position.y - 16,
-                    scale: isHovering ? 1.5 : 1,
-                    opacity: isHovering ? 0.8 : 0.4,
-                    borderColor: isHovering ? "#fbbf24" : "#06b6d4"
+                    scale: isHovering ? 2.5 : 1,
+                    borderWidth: isHovering ? "1px" : "1px",
+                    borderColor: isHovering ? "#ffffff" : "#ffffff" // Mix blend handles color
                 }}
-                transition={{ type: "spring", stiffness: 150, damping: 15 }}
             />
-        </>
+
+            {/* 3. Crosshair Lines (Only on Hover) */}
+            <motion.div
+                className="absolute w-8 h-8 mix-blend-difference flex items-center justify-center"
+                style={{ x: springX, y: springY }}
+                animate={{ opacity: isHovering ? 1 : 0, rotate: isHovering ? 90 : 0 }}
+            >
+                <div className="w-full h-[1px] bg-white absolute" />
+                <div className="h-full w-[1px] bg-white absolute" />
+            </motion.div>
+        </div>
     );
 }

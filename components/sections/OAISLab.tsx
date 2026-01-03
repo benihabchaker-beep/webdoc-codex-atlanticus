@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileDown, Loader2, Database, Terminal as TerminalIcon } from "lucide-react";
 import { content } from "@/data/content";
@@ -11,12 +11,36 @@ export default function OAISLab() {
     const [status, setStatus] = useState<Status>("IDLE");
     const [logs, setLogs] = useState<string[]>([]);
 
+    // Audio Refs
+    const processInAudio = useRef<HTMLAudioElement | null>(null);
+    const successAudio = useRef<HTMLAudioElement | null>(null);
+
+    useEffect(() => {
+        // Initialize simple SFX
+        processInAudio.current = new Audio("https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_shoot.mp3"); // Placeholder tech sound
+        processInAudio.current.volume = 0.2;
+
+        successAudio.current = new Audio("https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/pause.mp3"); // Placeholder success chime
+        successAudio.current.volume = 0.3;
+    }, []);
+
+    const playSound = (type: 'process' | 'success') => {
+        if (type === 'process' && processInAudio.current) {
+            processInAudio.current.currentTime = 0;
+            processInAudio.current.play().catch(() => { });
+        } else if (type === 'success' && successAudio.current) {
+            successAudio.current.currentTime = 0;
+            successAudio.current.play().catch(() => { });
+        }
+    };
+
     const addLog = (text: string) => {
         setLogs(prev => [...prev.slice(-8), `> ${text}`]);
     };
 
     const handleDrop = () => {
         setStatus("PROCESSING");
+        playSound('process');
         addLog("SIP_DETECTED: Ingesting...");
         addLog("VALIDATING_FORMAT: TIFF 6.0 [OK]");
 
@@ -28,6 +52,7 @@ export default function OAISLab() {
 
         setTimeout(() => {
             setStatus("SECURE");
+            playSound('success');
             addLog("AIP_CREATED: Storage ID 0x8F92");
             addLog("REPLICATION: Node 1, Node 2, Node 3 [OK]");
         }, 4500);
