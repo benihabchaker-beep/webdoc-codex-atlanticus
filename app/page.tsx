@@ -1,7 +1,7 @@
 // Sections (Strict 7-step structure)
 import HeroSection from "@/components/sections/HeroSection";
 import CodexConstellation from "@/components/sections/CodexConstellation";
-import ProblemSection from "@/components/sections/ProblemSection";
+import NarrativeJourney from "@/components/sections/NarrativeJourney";
 import StateOfArt from "@/components/sections/StateOfArt";
 import HypothesisSection from "@/components/sections/HypothesisSection";
 import MethodologyTimeline from "@/components/sections/MethodologyTimeline";
@@ -37,8 +37,8 @@ export default function Home() {
         {/* BRIDGE 1 */}
         <NarrativeBridge text="Face à l'urgence, les solutions actuelles échouent. Pourquoi ?" />
 
-        {/* 2. PROBLÉMATIQUE */}
-        <ProblemSection />
+        {/* 2. PROBLÉMATIQUE (NARRATIVE JOURNEY) */}
+        <NarrativeJourney />
 
         {/* 3. ÉTAT DE L'ART */}
         <StateOfArt />
