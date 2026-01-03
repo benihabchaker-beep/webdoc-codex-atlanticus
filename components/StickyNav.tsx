@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 const sections = [
     { id: "intro", label: "Introduction" },
+    { id: "corpus", label: "Le Corpus" },
     { id: "problematique", label: "Problématique" },
     { id: "etat-art", label: "État de l'Art" },
     { id: "methodologie", label: "Méthodologie" },
