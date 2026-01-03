@@ -122,7 +122,13 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
             if (index === progress) {
                 setProgress(prev => prev + 1);
             }
-            setActiveStep(null);
+
+            // Auto-advance to next step if available
+            if (index < steps.length - 1) {
+                setActiveStep(steps[index + 1]);
+            } else {
+                setActiveStep(null);
+            }
         }
     };
 
@@ -280,6 +286,7 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                         </p>
                         <button
                             onClick={() => {
+                                setProgress(4);
                                 if (onUnlock) onUnlock();
                                 setTimeout(() => {
                                     document.getElementById('etat-art')?.scrollIntoView({ behavior: 'smooth' });
