@@ -54,17 +54,18 @@ const steps: StoryStep[] = [
         x: 50,
         y: 60,
         icon: FileWarning,
-        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg' },
+        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/DaVinci_Codex-Atlanticus-Projections.JPG' },
         transformOrigin: "80% 80%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
                 <p>
                     Des moines de Grottaferrata tentent de "sauver" les feuillets en les collant sur des supports modernes.
                 </p>
-                <ul className="list-disc pl-5 text-base text-slate-400 space-y-2">
-                    <li>Utilisation de colles synthétiques instables.</li>
-                    <li>Réaction d'oxydation après 50 ans.</li>
-                </ul>
+                <div className="p-4 bg-slate-900/50 border border-slate-700/50 rounded-lg">
+                    <p className="text-slate-400 text-sm">
+                        <strong className="text-slate-200">Le Coupable :</strong> Les sels de mercure ajoutés à la colle pour empêcher les moisissures ont noirci le papier après 50 ans.
+                    </p>
+                </div>
             </div>
         )
     },
@@ -77,7 +78,7 @@ const steps: StoryStep[] = [
         x: 75,
         y: 35,
         icon: Microscope,
-        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Glitch_Art.jpg' },
+        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Glitch_Art.jpg' },
         transformOrigin: "50% 50%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
