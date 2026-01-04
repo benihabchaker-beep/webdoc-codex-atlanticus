@@ -77,7 +77,7 @@ const steps: StoryStep[] = [
         x: 75,
         y: 35,
         icon: Microscope,
-        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Glitch_art_01.jpg' },
+        mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Glitch_Art.jpg' },
         transformOrigin: "50% 50%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
@@ -244,8 +244,8 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                             className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-slate-950 border-l border-red-900/30 z-50 overflow-y-auto flex flex-col"
                         >
                             {/* Header Image */}
-                            <div className="h-64 relative shrink-0">
-                                <img src={activeStep.mediaArg.src} alt="Archive" className="w-full h-full object-cover" />
+                            <div className="h-80 relative shrink-0">
+                                <img src={activeStep.mediaArg.src} alt="Archive" className="w-full h-full object-cover object-top" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
                                 <button onClick={() => setActiveStep(null)} className="absolute top-6 right-6 p-2 bg-black/50 rounded-full hover:bg-white/20 transition"><X /></button>
                             </div>

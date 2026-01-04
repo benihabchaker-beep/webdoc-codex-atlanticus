@@ -33,7 +33,7 @@ export default function IntroSection() {
                 >
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/60 to-transparent z-10" />
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/4/4e/L%C3%A9onard_de_Vinci_-_Codex_Atlanticus_-_000_R-1.jpg"
+                        src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Leonardo_da_vinci%2C_codice_atlantico_01.jpg"
                         alt="Codex Page"
                         className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-110"
                     />
