@@ -15,6 +15,7 @@ type StoryStep = {
     y: number;
     icon: any;
     mediaArg: { src: string };
+    transformOrigin: string;
     details: React.ReactNode;
 };
 
@@ -24,11 +25,12 @@ const steps: StoryStep[] = [
         year: "1796",
         title: "Le Grand Pillage",
         lockedTitle: "L'Origine du Mal",
-        description: "Napoléon Bonaparte s'empare des manuscrits. Le Codex est démembré.",
+        description: "Napoléon exige le Codex comme butin de guerre. Les feuillets sont désolidarisés, mélangés, et transportés en charrettes vers Paris. Le début du chaos.",
         x: 25,
         y: 40,
         icon: History,
         mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Ingres%2C_Napoleon_on_his_Imperial_throne.jpg' },
+        transformOrigin: "30% 20%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
                 <p>
@@ -48,11 +50,12 @@ const steps: StoryStep[] = [
         year: "1960",
         title: "La Chimère Chimique",
         lockedTitle: "Le Silence des Moines",
-        description: "Une restauration désastreuse avec de la colle vinylique.",
+        description: "Au laboratoire de Grottaferrata, des moines tentent de sauver le papier. Ils utilisent de la colle vinyle. 40 ans plus tard, cette colle réagit chimiquement et crée des taches noires irréversibles.",
         x: 50,
         y: 60,
         icon: FileWarning,
         mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg' },
+        transformOrigin: "80% 80%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
                 <p>
@@ -70,11 +73,12 @@ const steps: StoryStep[] = [
         year: "2024",
         title: "L'Urgence Absolue",
         lockedTitle: "Le Danger Invisible",
-        description: "L'obsolescence silencieuse des formats numériques.",
+        description: "Chaque jour, l'encre s'efface un peu plus. La numérisation n'est plus une option, c'est une opération de sauvetage.",
         x: 75,
         y: 35,
         icon: Microscope,
         mediaArg: { src: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Glitch_art_01.jpg' },
+        transformOrigin: "50% 50%",
         details: (
             <div className="space-y-4 font-serif text-slate-300">
                 <p>
@@ -139,9 +143,10 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
             <motion.div
                 className="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/b/b4/Leonardo_da_Vinci_-_Ambrosiana-Codice-Atlantico-Codex-Atlanticus-f-1-recto.jpg')] bg-cover bg-center opacity-30 grayscale contrast-125"
                 animate={{
-                    scale: activeStep ? 1.5 : 1,
-                    x: activeStep ? `${50 - activeStep.x}%` : "0%",
-                    y: activeStep ? `${50 - activeStep.y}%` : "0%",
+                    scale: activeStep ? (activeStep.id === 'moines' ? 2 : 1.5) : 1,
+                    x: activeStep ? (activeStep.id === 'napoleon' ? "10%" : activeStep.id === 'moines' ? "-20%" : "0%") : "0%",
+                    y: activeStep ? (activeStep.id === 'napoleon' ? "10%" : activeStep.id === 'moines' ? "-20%" : "0%") : "0%",
+                    transformOrigin: activeStep ? activeStep.transformOrigin : "center center",
                 }}
                 transition={{ duration: 1.5, type: "spring", damping: 20 }}
             />
@@ -180,8 +185,8 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                     strokeWidth="2"
                     strokeDasharray="5,5"
                     initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 2 }}
+                    animate={{ pathLength: progress / 3 }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
                 />
             </svg>
 
@@ -193,12 +198,12 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                     const isCurrent = index === progress;
 
                     return (
-                        <div key={step.id} className="absolute" style={{ left: `${step.x}%`, top: `${step.y}%` }}>
+                        <div key={step.id} className="absolute flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2" style={{ left: `${step.x}%`, top: `${step.y}%` }}>
                             <motion.button
                                 onClick={() => handleStepClick(index)}
                                 disabled={!isUnlocked}
                                 className={`
-                                    relative w-16 h-16 -ml-8 -mt-8 rounded-full flex items-center justify-center border-2 transition-all duration-500
+                                    relative w-16 h-16 rounded-full flex items-center justify-center border-2 transition-all duration-500
                                     ${isCompleted ? 'bg-emerald-900/50 border-emerald-500 text-emerald-400' : ''}
                                     ${isCurrent ? 'bg-red-900/50 border-red-500 text-red-100 scale-110 shadow-[0_0_30px_rgba(239,68,68,0.5)]' : ''}
                                     ${!isUnlocked ? 'bg-slate-900/80 border-slate-700 text-slate-600 grayscale cursor-not-allowed' : ''}
@@ -209,7 +214,7 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                             </motion.button>
 
                             {/* Label */}
-                            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 text-center pt-4 pointer-events-none">
+                            <div className="mt-4 w-48 text-center pt-4 pointer-events-none">
                                 <span className={`text-[10px] font-mono border px-1 rounded ${isUnlocked ? 'border-red-500/30 text-red-400' : 'border-slate-800 text-slate-600'}`}>
                                     {step.year}
                                 </span>
@@ -228,7 +233,7 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40"
+                            className="fixed inset-0 bg-slate-950/80 backdrop-blur-xl z-40"
                             onClick={() => setActiveStep(null)}
                         />
                         <motion.div
