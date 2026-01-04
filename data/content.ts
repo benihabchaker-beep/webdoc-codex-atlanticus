@@ -2,16 +2,16 @@ export const content = {
     hero: {
         title: "CODEX ATLANTICUS",
         subtitles: ["Pérennité", "Intelligibilité", "Mémoire"],
-        description: "Le plus grand recueil de dessins et d'inventions de Léonard de Vinci. Une fenêtre ouverte sur l'esprit d'un génie, menacée par le temps.",
-        stats: "1 119 Feuillets. 5 Siècles d'Histoire. 1 Urgence Absolue."
+        description: "Plongez dans le cerveau de Léonard de Vinci. La plus grande collection de ses manuscrits au monde.",
+        stats: "1 119 Feuillets. Une vie de génie. Une course contre l'oubli."
     },
     intro: {
-        title: "La Mémoire du Monde",
-        text: "De la mécanique des fluides aux machines volantes, le Codex Atlanticus rassemble 40 ans de vie intellectuelle de Léonard. Mais ce trésor est un colosse aux pieds d'argile."
+        title: "L'Atlas de la Pensée",
+        text: "Imaginez un livre qui contient tout : des machines volantes aux plans de forteresses, de la botanique à la géométrie. Le Codex Atlanticus n'est pas juste un livre, c'est la carte mentale de Léonard."
     },
     problem: {
-        title: "Autopsie du Désastre",
-        report: "RAPPORT D'INCIDENT #842",
+        title: "Chronique d'un Désastre Silencieux",
+        description: "Mais ce trésor est un survivant. Volé par Napoléon, mutilé par des moines, rongé par la chimie... Pour comprendre l'urgence de notre projet, il faut revivre ses cicatrices.",
         status: "STATUS: CRITIQUE"
     },
     stateOfArt: {

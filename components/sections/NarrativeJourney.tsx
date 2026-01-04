@@ -161,10 +161,10 @@ export default function NarrativeJourney({ onUnlock }: NarrativeJourneyProps) {
                         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                         className="absolute top-12 left-0 right-0 text-center z-10 px-4 pointer-events-none"
                     >
-                        <h2 className="text-4xl md:text-5xl font-serif text-slate-100 mb-6">L'Odyssée d'un Manuscrit</h2>
+                        <h2 className="text-4xl md:text-5xl font-serif text-slate-100 mb-6">{content.problem.title}</h2>
                         <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto mb-8" />
                         <p className="text-slate-300 font-serif text-lg max-w-2xl mx-auto leading-relaxed bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/5 shadow-2xl">
-                            L'histoire de ce manuscrit est une suite de traumatismes. Pour comprendre pourquoi le numérique est vital, il faut revivre ses blessures physiques.
+                            {content.problem.description}
                         </p>
                     </motion.div>
                 )}

@@ -108,9 +108,9 @@ export default function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
                     onClick={() => document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="mt-12 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-cyan-400 transition-colors z-30 pointer-events-auto"
+                    className="mt-12 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-cyan-400 transition-colors z-30 pointer-events-auto shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]"
                 >
-                    COMMENCER L'EXPLORATION
+                    OUVRIR LE CODEX
                 </motion.button>
             </motion.div>
 
