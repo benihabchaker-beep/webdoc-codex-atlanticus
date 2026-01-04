@@ -2,7 +2,7 @@
 
 // Sections (Strict 7-step structure)
 import HeroSection from "@/components/sections/HeroSection";
-import CodexConstellation from "@/components/sections/CodexConstellation";
+import IntroSection from "@/components/sections/IntroSection";
 import NarrativeJourney from "@/components/sections/NarrativeJourney";
 import StateOfArt from "@/components/sections/StateOfArt";
 import HypothesisSection from "@/components/sections/HypothesisSection";
@@ -36,46 +36,44 @@ export default function Home() {
         <AudioPlayer />
         <StickyNav dependency={journeyUnlocked} />
 
-        {/* 1. INTRODUCTION */}
+        {/* 1. EMOTION (HERO) */}
         <HeroSection />
 
-        {/* 1.5. DATA VISUALIZATION (CORPUS) */}
-        <CodexConstellation />
+        {/* 2. LE SUJET (INTRO) */}
+        <IntroSection />
 
-        {/* BRIDGE 1 */}
-        <NarrativeBridge text="Face à l'urgence, les solutions actuelles échouent. Pourquoi ?" />
-
-        {/* 2. PROBLÉMATIQUE (NARRATIVE JOURNEY) */}
+        {/* 3. LE PROBLÈME (NARRATIVE JOURNEY) */}
         <NarrativeJourney onUnlock={() => setJourneyUnlocked(true)} />
 
         {/* LOCKED CONTENT: ONLY APPEARS AFTER JOURNEY */}
         <AnimatePresence>
           {journeyUnlocked && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-              {/* 3. ÉTAT DE L'ART */}
+
+              {/* 4. ÉCHEC DES AUTRES (ÉTAT DE L'ART) */}
               <StateOfArt />
 
-              {/* BRIDGE 2 */}
+              {/* 5. TRANSITION */}
               <NarrativeBridge text="Si l'image ne suffit pas, il faut repenser la nature même de l'archive." />
 
-              {/* 4. HYPOTHÈSE (PIVOT) */}
+              {/* 6. HYPOTHÈSE (PIVOT) */}
               <HypothesisSection />
 
-              {/* BRIDGE 3 */}
+              {/* TRANSITION */}
               <NarrativeBridge text="Comment transformer cette théorie en une machine fonctionnelle ?" />
 
-              {/* 4.5 MÉTHODOLOGIE */}
+              {/* 7. MÉTHODOLOGIE */}
               <MethodologyTimeline />
 
-              {/* 5. DÉVELOPPEMENT DU SUJET */}
+              {/* 8. DÉMONSTRATION TECHNIQUE */}
               <DeepDiveSection />
 
-              {/* 6. RÉSULTATS */}
+              {/* 9. RÉSULTATS */}
               <section id="resultats" className="py-24 bg-[#0a0b0e]">
                 <ResultsGallery />
               </section>
 
-              {/* 7. CONCLUSION */}
+              {/* 10. CONCLUSION */}
               <ConclusionSection />
             </motion.div>
           )}

@@ -99,19 +99,29 @@ export default function HeroSection() {
                     </motion.p>
                 </div>
 
-                <p className="mt-8 text-slate-300 max-w-xl mx-auto font-light text-lg tracking-wide border-t border-slate-700/50 pt-8 select-none">
+                <p className="mt-8 text-slate-300 max-w-2xl mx-auto font-light text-lg tracking-wide border-t border-slate-700/50 pt-8 select-none leading-relaxed">
                     {content.hero.description}
                 </p>
+
+                <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
+                    onClick={() => document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="mt-12 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-cyan-400 transition-colors z-30 pointer-events-auto"
+                >
+                    COMMENCER L'EXPLORATION
+                </motion.button>
             </motion.div>
 
-            {/* Scroll Indicator */}
+            {/* Stats / Footer */}
             <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute bottom-12 text-slate-500 flex flex-col items-center gap-2 z-30 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5 }}
+                className="absolute bottom-12 text-slate-500 font-mono text-xs tracking-widest uppercase z-30 select-none"
             >
-                <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-slate-500 to-transparent" />
-                <span className="text-[10px] tracking-widest uppercase">Scroll to Discover</span>
+                {content.hero.stats}
             </motion.div>
         </section>
     );

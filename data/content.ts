@@ -2,7 +2,12 @@ export const content = {
     hero: {
         title: "CODEX ATLANTICUS",
         subtitles: ["Pérennité", "Intelligibilité", "Mémoire"],
-        description: "Exploration immersive du système socio-technique de préservation numérique."
+        description: "Le plus grand recueil de dessins et d'inventions de Léonard de Vinci. Une fenêtre ouverte sur l'esprit d'un génie, menacée par le temps.",
+        stats: "1 119 Feuillets. 5 Siècles d'Histoire. 1 Urgence Absolue."
+    },
+    intro: {
+        title: "La Mémoire du Monde",
+        text: "De la mécanique des fluides aux machines volantes, le Codex Atlanticus rassemble 40 ans de vie intellectuelle de Léonard. Mais ce trésor est un colosse aux pieds d'argile."
     },
     problem: {
         title: "Autopsie du Désastre",
@@ -11,27 +16,27 @@ export const content = {
     },
     stateOfArt: {
         title: "État de l'Art",
-        subtitle: "Comparatif des approches existantes",
+        subtitle: "Pourquoi les solutions actuelles échouent",
         cards: [
             {
-                id: "visual",
-                title: "Approche Purement Visuelle",
-                description: "Agences de Design",
-                hoverText: "Aucune pérennité OAIS. Obsolescence rapide.",
-                icon: "Eye"
-            },
-            {
-                id: "scientific",
-                title: "Approche Purement Scientifique",
-                description: "Leonardo//Thek@",
-                hoverText: "Inaccessible au Grand Public. Austérité.",
+                id: "traditional",
+                title: "Approche Traditionnelle",
+                description: "Archive Physique",
+                hoverText: "Fragile, inaccessible au public, dégradation chimique inévitable.",
                 icon: "BookOpen"
             },
             {
+                id: "digital_v1",
+                title: "Approche Numérique 1.0",
+                description: "Sites Web & Galeries",
+                hoverText: "Image plate, aucun contexte sémantique, obsolescence des formats (JPG/PNG).",
+                icon: "Eye"
+            },
+            {
                 id: "solution",
-                title: "Le Système Socio-Technique",
-                description: "Notre Solution",
-                hoverText: "Équilibre Parfait : Rigueur + Immersion.",
+                title: "Codex 2.0",
+                description: "Notre Réponse",
+                hoverText: "Archivage OAIS + Intelligence Artificielle. La résilience par la structure.",
                 icon: "Scale"
             }
         ]
